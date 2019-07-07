@@ -10,7 +10,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -125,3 +124,6 @@ dmypy.json
 
 # SQLite Database
 *.db
+
+# Node
+node_modules

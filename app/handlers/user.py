@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.models import db
 from app.models.users import User
 
@@ -12,4 +12,4 @@ def user_api_pong():
 @user_api.route('/api/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
-    return jsonify([users.to_json() for user in users])
+    return jsonify([user.to_json() for user in users])
