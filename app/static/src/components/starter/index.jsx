@@ -1,13 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-class Starter extends React.Component {
-    render() {
-        return (
-            <div>
-                Hello World Again
-            </div>
-        )
-    }
+export default function HelloWorld(props) {
+  return <div> {props.title} </div>;
 }
-
-export default Starter
