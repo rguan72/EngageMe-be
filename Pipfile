@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 flask = "*"
 python-dotenv = "*"
+google-cloud-firestore = "*"
 
 [requires]
 python_version = "3.7.4"
