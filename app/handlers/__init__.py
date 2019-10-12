@@ -1,7 +1,7 @@
-from .route import route_api
-from .user import user_api
+from .video import video_api
+from .interval import interval_api
 
 blueprints = [
-    route_api,
-    user_api,
+    video_api,
+    interval_api
 ]
