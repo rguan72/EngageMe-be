@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models.intervals import Interval
+from app.models.video_model import Video
+from app.utils.update import average_interval_update
 from google.cloud import exceptions
 
 interval_api = Blueprint("interval_api", __name__)
@@ -12,6 +14,8 @@ def create_interval():
         print(e)
         return "Bad request", 400
     interval.commit()
+    video_id = next(Video.get_ref().where("url", "==", request.json["url"]).stream()).id
+    average_interval_update(video_id)
     return jsonify(interval.to_dict())
 
 @interval_api.route("/api/interval", methods=["GET"])

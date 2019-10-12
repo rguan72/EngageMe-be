@@ -9,8 +9,6 @@ verify_ssl = true
 flask = "*"
 python-dotenv = "*"
 google-cloud-firestore = "*"
-apscheduler = "*"
-python-crontab = "*"
 gunicorn = "*"
 
 [requires]
