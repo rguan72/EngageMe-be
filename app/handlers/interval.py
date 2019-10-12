@@ -19,9 +19,9 @@ def get_all_intervals():
     try:
         doc_ref = Interval.get_ref()
         res = []
-        for interval in doc_ref.get():
+        for interval in doc_ref.stream():
             res.append(interval.to_dict())
         return jsonify(res)
     except Exception as e:
         print(e)
-        return "Url not found", 404
+        return e, 500

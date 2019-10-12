@@ -131,5 +131,8 @@ node_modules
 # PyCharm
 .idea/
 
+# VSCode
+.vscode
+
 # API Keys
 EngageMe-BE-ffb97161c51c.json

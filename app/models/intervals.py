@@ -1,19 +1,19 @@
 from . import db
 
 class Interval:
+    ref = db.collection("interval")
     def __init__(self, url="", start=0, end=0, uuid=""):
         self.url = url
         self.start = start
         self.end = end
         self.uuid = uuid
-        self.ref = db.collection("interval")
 
     def commit(self):
-        self.ref.document().set(self.to_dict())
+        Interval.ref.document().set(self.to_dict())
 
     @staticmethod
     def get_ref():
-        return db.collection("interval")
+        return Interval.ref
     
     def to_dict(self):
         res = {}

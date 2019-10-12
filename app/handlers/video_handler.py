@@ -11,19 +11,14 @@ video_api = Blueprint("video", __name__)
 def pong():
     return "PONG."
 
-
 @video_api.route("/api/video", methods=["GET"])
-def index():
-    url = request.args.get("url")
-    if not url:
-        return "Error 404: No url specified", 404
-
-    doc_ref = db.collection("video").document(url)
+def get_all_intervals():
     try:
-        doc = doc_ref.get()
-        video = Video.from_dict(doc.to_dict())
-        print(f"Video: {video}")
-    except google.cloud.exceptions.NotFound:
-        video = {}
-        print(f"No document found for: {url}")
-    return jsonify(video)
+        doc_ref = Video.get_ref()
+        res = []
+        for vid in doc_ref.stream():
+            res.append(vid.to_dict())
+        return jsonify(res)
+    except Exception as e:
+        print(e)
+        return e, 500
