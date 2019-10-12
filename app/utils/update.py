@@ -7,10 +7,8 @@ MIN_LENGTH = 15
 
 def average_interval_update(video_id):
     video = db.collection("video").document(video_id).get()
-    print(video)
     url = video.to_dict()["url"]
     length = video.to_dict()["length"]
-    print(url)
     cumulative = [0 for _ in range(length)]
     num_users = 0
     for interval in db.collection("interval").where("url", "==", url).stream():
@@ -23,7 +21,6 @@ def average_interval_update(video_id):
     intervals = []
     start = 0
     end = 0
-    print(num_users)
     while end < len(cumulative):
         if (cumulative[end] / num_users) > CUTOFF:
             end += 1
@@ -36,7 +33,6 @@ def average_interval_update(video_id):
     if start < end:
         intervals.append(f"{start},{end-1}")
 
-    print(intervals)
     db.collection("video").document(video.id).update({ "average_intervals": intervals })
     return cumulative
         
