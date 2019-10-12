@@ -130,3 +130,6 @@ node_modules
 
 # PyCharm
 .idea/
+
+# API Keys
+EngageMe-BE-ffb97161c51c.json

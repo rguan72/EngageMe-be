@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from app.models import db
 
 
 route_api = Blueprint('route', __name__)
@@ -9,4 +10,5 @@ def pong():
 
 @route_api.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    doc_ref = db.collection(u'users').document(u'alovelace').set({"yo": "hi"})
+    return "hi"
