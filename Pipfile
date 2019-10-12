@@ -11,6 +11,7 @@ python-dotenv = "*"
 google-cloud-firestore = "*"
 apscheduler = "*"
 python-crontab = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7.4"
