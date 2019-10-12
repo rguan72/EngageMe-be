@@ -7,7 +7,6 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-flask-migrate = "*"
 python-dotenv = "*"
 
 [requires]
