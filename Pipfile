@@ -9,6 +9,7 @@ verify_ssl = true
 flask = "*"
 python-dotenv = "*"
 google-cloud-firestore = "*"
+apscheduler = "*"
 
 [requires]
 python_version = "3.7.4"
