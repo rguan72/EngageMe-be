@@ -2,8 +2,8 @@ from app.models.interval_model import Interval
 from app.models import db
 from datetime import datetime
 
-CUTOFF = .4
-MIN_LENGTH = 15
+CUTOFF = .2
+MIN_LENGTH = 10
 
 
 def average_interval_update(video_id):
