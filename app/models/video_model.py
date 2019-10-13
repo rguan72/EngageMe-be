@@ -1,7 +1,9 @@
 from . import db
 
+
 class Video(object):
     ref = db.collection("video")
+
     def __init__(self, url, name, length, average_intervals):
         self.url = url
         self.name = name
@@ -11,10 +13,9 @@ class Video(object):
             self.average_intervals.append(f"{interval[0]},{interval[1]}")
 
     def commit(self):
-        id = Video.ref.document().id
-        Video.ref.document(id).set(self.to_dict())
-        return id
-        
+        id_ = Video.ref.document().id
+        Video.ref.document(id_).set(self.to_dict())
+        return id_
 
     @staticmethod
     def from_dict(source):

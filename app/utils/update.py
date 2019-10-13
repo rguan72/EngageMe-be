@@ -1,9 +1,10 @@
-from app.models.intervals import Interval
+from app.models.interval_model import Interval
 from app.models import db
 from datetime import datetime
 
 CUTOFF = .5
 MIN_LENGTH = 1
+
 
 def average_interval_update(video_id):
     video = db.collection("video").document(video_id).get()
@@ -33,4 +34,3 @@ def average_interval_update(video_id):
         intervals.append(f"{start},{end-1}")
     db.collection("video").document(video.id).update({ "average_intervals": intervals })
     return cumulative
-        

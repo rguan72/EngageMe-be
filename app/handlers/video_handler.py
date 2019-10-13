@@ -1,5 +1,4 @@
-from flask import Blueprint, request, jsonify
-from app.models import db
+from flask import Blueprint, jsonify
 from app.models.video_model import Video
 import google.cloud.exceptions
 
@@ -11,8 +10,9 @@ video_api = Blueprint("video", __name__)
 def pong():
     return "PONG."
 
-@video_api.route("/api/video", methods=["GET"])
-def get_all_intervals():
+
+@video_api.route("/api/video/all", methods=["GET"])
+def get_all_video():
     try:
         doc_ref = Video.get_ref()
         res = []
@@ -22,3 +22,16 @@ def get_all_intervals():
     except Exception as e:
         print(e)
         return e, 500
+
+
+@video_api.route("/api/video/<video_id>", methods="GET")
+def get_video(video_id):
+    try:
+        doc = Video.get_ref().document(video_id).get()
+        video = Video.from_dict(doc.to_dict())
+    except google.cloud.exceptions.NotFound:
+        video = {}
+    except Exception as e:
+        print(e)
+        return e, 500
+    return jsonify(video)

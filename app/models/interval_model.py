@@ -2,6 +2,7 @@ from . import db
 
 class Interval:
     ref = db.collection("interval")
+
     def __init__(self, url="", start=0, end=0, uuid=""):
         self.url = url
         self.start = start
