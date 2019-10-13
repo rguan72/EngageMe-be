@@ -24,12 +24,12 @@ def get_all_video():
         return e, 500
 
 
-@video_api.route("/api/video/<video_id>", methods="GET")
-def get_video(video_id):
+@video_api.route("/api/video/<video_url>", methods=["GET"])
+def get_video(video_url):
     try:
-        doc = Video.get_ref().document(video_id).get()
+        doc = next(Video.get_ref().where("url", "==", video_url).stream())
         video = Video.from_dict(doc.to_dict())
-    except google.cloud.exceptions.NotFound:
+    except StopIteration:
         video = {}
     except Exception as e:
         print(e)
