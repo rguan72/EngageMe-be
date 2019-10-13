@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.models.video_model import Video
 import google.cloud.exceptions
 
@@ -24,8 +24,9 @@ def get_all_video():
         return e, 500
 
 
-@video_api.route("/api/video/<video_url>", methods=["GET"])
-def get_video(video_url):
+@video_api.route("/api/video", methods=["GET"])
+def get_video():
+    video_url = request.args["url"]
     try:
         doc = next(Video.get_ref().where("url", "==", video_url).stream())
         video = Video.from_dict(doc.to_dict())

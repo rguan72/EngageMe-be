@@ -9,6 +9,7 @@ class Video(object):
         self.name = name
         self.length = length
         self.average_intervals = []
+        self.views = 1
         for interval in average_intervals:
             self.average_intervals.append(f"{interval[0]},{interval[1]}")
 
@@ -26,6 +27,7 @@ class Video(object):
             "url": source["url"],
             "name": source["name"],
             "length": source["length"],
+            "views": source["views"],
             "average_intervals": average_intervals
         }
 
@@ -38,6 +40,7 @@ class Video(object):
             "url": self.url,
             "name": self.name,
             "length": self.length,
+            "views": self.views,
             "average_intervals": self.average_intervals
         }
 
