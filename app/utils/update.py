@@ -8,12 +8,12 @@ MIN_LENGTH = 15
 def average_interval_update(video_id):
     video = db.collection("video").document(video_id).get()
     url = video.to_dict()["url"]
-    length = video.to_dict()["length"]
+    length = int(video.to_dict()["length"])
     cumulative = [0 for _ in range(length)]
     num_users = 0
     for interval in db.collection("interval").where("url", "==", url).stream():
-        start_time = interval.to_dict()["start"]
-        end_time = interval.to_dict()["end"]
+        start_time = int(interval.to_dict()["start"])
+        end_time = int(interval.to_dict()["end"])
         for i in range(start_time, end_time + 1):
             cumulative[i] += 1
         num_users += 1

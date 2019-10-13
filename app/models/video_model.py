@@ -6,10 +6,15 @@ class Video(object):
         self.url = url
         self.name = name
         self.length = length
-        self.average_intervals = average_intervals
+        self.average_intervals = []
+        for interval in average_intervals:
+            self.average_intervals.append(f"{interval[0]},{interval[1]}")
 
     def commit(self):
-        Video.ref.document().set(self.to_dict())
+        ref = Video.ref.document()
+        ref.set(self.to_dict())
+        return ref.getId()
+        
 
     @staticmethod
     def from_dict(source):
