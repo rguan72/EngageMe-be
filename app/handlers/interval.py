@@ -8,29 +8,23 @@ interval_api = Blueprint("interval_api", __name__)
 
 @interval_api.route("/api/interval", methods=["POST"])
 def create_interval():
-    print(request.get_data())
-    # print(json.loads(request.get_data()))
-    print(request.json)
     uuid = request.json["uuid"]
     url = request.json["url"]
     # try:
     for intvl in request.json["intervals"]:
-        print('intvl', intvl)
         interval = Interval(url=url, uuid=uuid, start=intvl[0], end=intvl[1])
         interval.commit()
     stream = Video.get_ref().where("url", "==", request.json["url"]).stream()
-    print(stream)
 
     try:
         video_id = next(Video.get_ref().where("url", "==", request.json["url"]).stream()).id
     except StopIteration:
-        print(request.json["intervals"])
+        print(request.json)
         vid = Video(url=request.json["url"], name=request.json["name"], length=request.json["length"], average_intervals=request.json["intervals"])
-        vid.commit()
+        video_id = vid.commit()
     except Exception as e:
         print(e)
 
-    print(video_id)
     average_interval_update(video_id)
     return "", 200
 

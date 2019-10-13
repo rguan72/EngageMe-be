@@ -3,7 +3,7 @@ from app.models import db
 from datetime import datetime
 
 CUTOFF = .5
-MIN_LENGTH = 15
+MIN_LENGTH = 1
 
 def average_interval_update(video_id):
     video = db.collection("video").document(video_id).get()
@@ -17,7 +17,6 @@ def average_interval_update(video_id):
         for i in range(start_time, end_time + 1):
             cumulative[i] += 1
         num_users += 1
-
     intervals = []
     start = 0
     end = 0
@@ -32,7 +31,6 @@ def average_interval_update(video_id):
 
     if start < end:
         intervals.append(f"{start},{end-1}")
-
     db.collection("video").document(video.id).update({ "average_intervals": intervals })
     return cumulative
         

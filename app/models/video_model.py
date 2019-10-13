@@ -11,9 +11,9 @@ class Video(object):
             self.average_intervals.append(f"{interval[0]},{interval[1]}")
 
     def commit(self):
-        ref = Video.ref.document()
-        ref.set(self.to_dict())
-        return ref.getId()
+        id = Video.ref.document().id
+        Video.ref.document(id).set(self.to_dict())
+        return id
         
 
     @staticmethod
