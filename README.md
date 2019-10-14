@@ -1,4 +1,6 @@
 # EngageMe
+Winner of 2nd place for Best Use of Google Cloud at MHacks 12!
+
 Engage the audience better by pointing them to only interesting parts of a video!
 
 ## Motivation
