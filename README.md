@@ -1,7 +1,7 @@
 # EngageMe
 Winner of 2nd place for Best Use of Google Cloud at MHacks 12!
 
-Engage the audience better by pointing them to only interesting parts of a video!
+Engage the audience better by pointing them to only interesting parts of a video.
 
 ## Motivation
 Our group members noticed that it's often difficult to cut through the noise and get  straight to the important parts of videos/lecture recordings. We figured it would be cool to crowdsource this information and direct users to the most interesting/important portions of the video in a seamless manner. We also wanted to do this in a platform agnostic manner.
