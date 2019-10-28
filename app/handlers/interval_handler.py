@@ -18,10 +18,7 @@ def create_interval():
         video_ref = next(Video.get_ref().where("url", "==", request.json["url"]).stream())
         video_id = video_ref.id
         old_views = video_ref.to_dict()["views"]
-        print(video_ref)
         Video.get_ref().document(video_id).update({ "views": old_views + 1 })
-        print("rg1")
-        print(old_views)
     except StopIteration:
         print(request.json)
         vid = Video(url=request.json["url"], name=request.json["name"], length=request.json["length"], average_intervals=request.json["intervals"])
