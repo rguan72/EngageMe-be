@@ -1,3 +1,4 @@
+from datetime import datetime
 from . import db
 
 
@@ -9,12 +10,15 @@ class Video(object):
         self.name = name
         self.length = length
         self.average_intervals = []
+        self.created = datetime.now()
+        self.updated = datetime.now()
         self.views = 1
         for interval in average_intervals:
             self.average_intervals.append(f"{interval[0]},{interval[1]}")
 
     def commit(self):
         id_ = Video.ref.document().id
+        self.updated = datetime.now()
         Video.ref.document(id_).set(self.to_dict())
         return id_
 
@@ -28,6 +32,8 @@ class Video(object):
             "name": source["name"],
             "length": source["length"],
             "views": source["views"],
+            "created": source["created"],
+            "updated": source["updated"],
             "average_intervals": average_intervals
         }
 
@@ -41,6 +47,8 @@ class Video(object):
             "name": self.name,
             "length": self.length,
             "views": self.views,
+            "created": self.created,
+            "updated": self.updated,
             "average_intervals": self.average_intervals
         }
 

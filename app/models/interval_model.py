@@ -1,3 +1,4 @@
+from datetime import datetime
 from . import db
 
 class Interval:
@@ -8,8 +9,11 @@ class Interval:
         self.start = start
         self.end = end
         self.uuid = uuid
+        self.created = datetime.now()
+        self.updated = datetime.now()
 
     def commit(self):
+        self.updated = datetime.now()
         Interval.ref.document().set(self.to_dict())
 
     @staticmethod
@@ -17,7 +21,11 @@ class Interval:
         return Interval.ref
     
     def to_dict(self):
-        res = {}
-        for field in ("url", "start", "end", "uuid"):
-            res[field] = getattr(self, field)
-        return res
+        return {
+            "url": self.url,
+            "start": self.start,
+            "end": self.end,
+            "uuid": self.uuid,
+            "created": self.created,
+            "updated": self.updated
+        }
