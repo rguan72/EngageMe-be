@@ -11,6 +11,8 @@ python-dotenv = "*"
 google-cloud-firestore = "*"
 gunicorn = "*"
 flask-cors = "*"
+pylint = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.7.4"
