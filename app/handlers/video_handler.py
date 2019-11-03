@@ -26,7 +26,10 @@ def get_all_video():
 
 @video_api.route("/api/video", methods=["GET"])
 def get_video():
-    video_url = request.args["url"]
+    try:
+        video_url = request.args["url"]
+    except KeyError:
+        return "Need to include url query parameter", 400
     try:
         doc = next(Video.get_ref().where("url", "==", video_url).stream())
         video = Video.from_dict(doc.to_dict())
