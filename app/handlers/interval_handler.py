@@ -11,6 +11,8 @@ def create_interval():
     uuid = request.json["uuid"]
     url = request.json["url"]
     for intvl in request.json["intervals"]:
+        if intvl[0] > request.json["length"] or intvl[1] > request.json["length"]:
+            return "Start or end time greater than length", 400
         interval = Interval(url=url, uuid=uuid, start=intvl[0], end=intvl[1])
         interval.commit()
 
@@ -26,7 +28,6 @@ def create_interval():
     except Exception as e:
         print(e)
         return e, 400
-
     average_interval_update(video_id)
     return "", 200
 
