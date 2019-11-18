@@ -10,22 +10,34 @@ interval_api = Blueprint("interval_api", __name__)
 def create_interval():
     uuid = request.json["uuid"]
     url = request.json["url"]
-    for intvl in request.json["intervals"]:
-        interval = Interval(url=url, uuid=uuid, start=intvl[0], end=intvl[1])
-        interval.commit()
+    name = request.json["name"]
+    length = request.json["length"]
+    new_video = False
 
     try:
         video_ref = next(Video.get_ref().where("url", "==", request.json["url"]).stream())
+        length = video_ref.to_dict()["length"]
+    except StopIteration:
+        new_video = True
+
+    intervals = []
+    for start, end in request.json["intervals"]:
+        if 0 <= start < length and 0 <= end < length and start <= end:
+            intervals.append(Interval(url=url, uuid=uuid, start=start, end=end))
+        else:
+            return "Start or end time greater than length", 400
+
+    for interval in intervals:
+        interval.commit()
+
+    if new_video:
+        print(request.json)
+        vid = Video(url=url, name=name, length=length)
+        video_id = vid.commit()
+    else:
         video_id = video_ref.id
         old_views = video_ref.to_dict()["views"]
-        Video.get_ref().document(video_id).update({ "views": old_views + 1 })
-    except StopIteration:
-        print(request.json)
-        vid = Video(url=request.json["url"], name=request.json["name"], length=request.json["length"], average_intervals=request.json["intervals"])
-        video_id = vid.commit()
-    except Exception as e:
-        print(e)
-        return e, 400
+        Video.get_ref().document(video_id).update({ "views": old_views + 1 }) 
 
     average_interval_update(video_id)
     return "", 200
