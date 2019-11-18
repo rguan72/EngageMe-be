@@ -5,7 +5,7 @@ from . import db
 class Video(object):
     ref = db.collection("video")
 
-    def __init__(self, url, name, length, average_intervals):
+    def __init__(self, url, name, length):
         self.url = url
         self.name = name
         self.length = length
@@ -13,8 +13,6 @@ class Video(object):
         self.created = datetime.now()
         self.updated = datetime.now()
         self.views = 1
-        for interval in average_intervals:
-            self.average_intervals.append(f"{interval[0]},{interval[1]}")
 
     def commit(self):
         id_ = Video.ref.document().id
