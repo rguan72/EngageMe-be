@@ -27,15 +27,26 @@ Add Google Cloud JSON credentials to the root of your repo and a `.env` file wit
 Then:
 
 ```bash
-# Install pipenv if not already installed
-$ pip install --user pipenv
+# Install Python Poetry if not already installed
+$ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+
 
 # install dependencies
-$ pipenv install
+$ poetry install
 
 # enter shell
-$ pipenv start
+$ poetry shell
 
 # start running application
 $ flask run
+```
+
+Deploy (to be automated)
+
+```bash
+# update dependencies
+$ poetry export -f requirements.txt > requirements.txt
+
+# deploy
+$ gcloud app beta deploy
 ```
